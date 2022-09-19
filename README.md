@@ -17,4 +17,5 @@
 - `archive.py` — содержит описание класса `Archive` и несколько вспомогательных функций для работы
 
 **Демонстрация:**
+
 ![Image](https://user-images.githubusercontent.com/75813517/191124387-0df4e24c-146e-40dd-a701-84c385c206e7.jpg)
