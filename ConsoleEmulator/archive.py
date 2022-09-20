@@ -31,11 +31,8 @@ class Archive:
             dir = self.currentDir
             if commands[1] != '-l':
                 dir = self.clearPatn(commands[1])
-                # path = self.currentDir+commands[1]
                 catalog = self.chooseItemInDir(dir)
                 print(*catalog, sep='    ', end='\n')
-                # print("ZipFile: {}".format(self.zip.getinfo(path)))
-
 
             elif commands[1] == '-l':
                 if len(commands) > 2:
@@ -51,14 +48,12 @@ class Archive:
                         print(c.month_abbr[d[1]]," ",d[2]," ",clock,"\t", zipdata.file_size, "\t", zipdata.external_attr, "\t", item)
                     except Exception as e:
                         print(e)    
-
         else:
             
             catalog = self.chooseItemInDir(self.currentDir)
             print(*catalog, sep='    ', end='\n')
 
     def catenate(self, path):
-
         try:
             dir = self.clearPatn(path)
         except Exception as e:
@@ -85,6 +80,7 @@ class Archive:
 
     def allPath(self):
         print(self.namelist)
+        
     def getAll(self):
         for data in self.infolist:
             print(data)
