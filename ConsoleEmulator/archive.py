@@ -29,25 +29,27 @@ class Archive:
         
         if len(commands) > 1:
             dir = self.currentDir
-            if commands[1] != '-l':
-                dir = self.clearPatn(commands[1])
-                catalog = self.chooseItemInDir(dir)
-                print(*catalog, sep='    ', end='\n')
+            if commands[1] != "pwd" and commands[1] != "ls" and commands[1] != "cd" and commands[1] != "cat" and commands[1] != "exit" and ' ..' in commands[1]:
+                if commands[1] != '-l':
+                    dir = self.clearPatn(commands[1])
+                    catalog = self.chooseItemInDir(dir)
+                    print(*catalog, sep='    ', end='\n')
 
-            elif commands[1] == '-l':
-                if len(commands) > 2:
-                    dir = self.clearPatn(commands[2])
-                catalog = self.chooseItemInDir(dir)
+                elif commands[1] == '-l':
+                    if len(commands) > 2:
+                        dir = self.clearPatn(commands[2])
+                    catalog = self.chooseItemInDir(dir)
 
-                for item in catalog:
-                    path = os.path.join(dir, item)
-                    try:
-                        zipdata = self.infodict[path]
-                        d = zipdata.date_time
-                        clock = convertClock(d)
-                        print(c.month_abbr[d[1]]," ",d[2]," ",clock,"\t", zipdata.file_size, "\t", zipdata.external_attr, "\t", item)
-                    except Exception as e:
-                        print(e)    
+                    for item in catalog:
+                        path = os.path.join(dir, item)
+                        try:
+                            zipdata = self.infodict[path]
+                            d = zipdata.date_time
+                            clock = convertClock(d)
+                            print(c.month_abbr[d[1]]," ",d[2]," ",clock,"\t", zipdata.file_size, "\t", zipdata.external_attr, "\t", item)
+                        except Exception as e:
+                            print(e) 
+            else: print("Wrong path!")  
         else:
             
             catalog = self.chooseItemInDir(self.currentDir)
@@ -61,7 +63,7 @@ class Archive:
             return
         try:
             with self.zip.open(dir) as myfile:
-                print(myfile.read())
+                print(myfile.read()) if myfile.read() != b'' else print(f"{dir} is not file")
         except Exception as e:
             print(f"{dir} is not file")
 
